@@ -1,0 +1,14 @@
+Set of Additional Ext JS & Ext Core Effects/FX
+
+The following effects are currently in this set:
+
+* Shake
+* Ripple (for text)
+* NumTransition (increase or decrease a number) 
+* CSS3 Fade
+* CSS3 Spin
+* CSS3 Zoom
+
+Demo: http://artalat.obspk.com/examples/Ext.Fx/Ext.Fx.html
+
+If you would like to see other effects added to this set please fill out a issue.
