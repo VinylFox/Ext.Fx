@@ -11,4 +11,6 @@ The following effects are currently in this set:
 
 Demo: http://artalat.obspk.com/examples/Ext.Fx/Ext.Fx.html
 
+CSS3 Demo: http://www.simoens.org/projects/CSS3/
+
 If you would like to see other effects added to this set please fill out a issue.
