@@ -9,7 +9,7 @@ The following effects are currently in this set:
 * CSS3 Spin
 * CSS3 Zoom
 
-Demo: http://artalat.obspk.com/examples/Ext.Fx/Ext.Fx.html
+Demo: http://www.artalat.com/Ext.Fx/Ext.Fx.html
 
 CSS3 Demo: http://www.simoens.org/projects/CSS3/
 
