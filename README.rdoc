@@ -8,6 +8,7 @@ The following effects are currently in this set:
 * CSS3 Fade
 * CSS3 Spin
 * CSS3 Zoom
+* CSS3 Slide
 
 Demo: http://www.artalat.com/Ext.Fx/Ext.Fx.html
 
