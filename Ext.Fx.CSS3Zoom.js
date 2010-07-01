@@ -22,8 +22,8 @@ Ext.apply(Ext.Fx, {
 		o = Ext.applyIf(o || {}, {
 	        duration: 250
 	    });
-		this.applyStyles("opacity:1;-webkit-transform: scale(1);-webkit-transition-timing-function: ease-out;-webkit-transition-duration: "+o.duration+"ms;");
-		return this;
+		o.direction = 1;
+		return this.CSS3ZoomToggle(o);
 	},
 	/**
      * Zooms an element 360 degrees.
@@ -40,10 +40,53 @@ Ext.apply(Ext.Fx, {
      */
 	CSS3ZoomOut: function(o) {
 		o = Ext.applyIf(o || {}, {
-	        duration: 250
+	        duration: 250,
+	        remove: true
 	    });
-		this.applyStyles("opacity:0;-webkit-transform: scale(0);-webkit-transition-timing-function: ease-out;-webkit-transition-duration: "+o.duration+"ms;");
+		o.direction = 0;
+		return this.CSS3ZoomToggle(o);
+	},
+	/**
+     * Toggles between zoom an element in or out.
+     * Usage:
+     *<pre><code>
+          // default: Toggle the zoom in or out taking 250 milliseconds
+          el.CSS3ZoomToggle();
+
+          // custom: Toggle the zoom in or out taking 5000 milliseconds
+          el.CSS3ZoomToggle({ duration: 5000 });
+     </code></pre>
+     * @param {Object} options (optional) Object literal with any of the CSS3ZoomToggle config options (duration, direction)
+     * @return {Ext.Element} The Element
+     */
+	CSS3ZoomToggle: function(o) {
+		o = Ext.applyIf(o || {}, {
+	        duration: 250,
+	        direction: null,
+	        remove: false,
+	        stylesheets: {}
+	    });
+		if (o.direction === null) {
+			o.direction = (this.getStyle("opacity") == 0) ? 1 : 0;
+		}
+		this.setStyle({
+			"-webkit-transform": "scale("+o.direction+")",
+			"-webkit-transition-timing-function": "linear",
+			"-webkit-transition-duration": o.duration+"ms",
+			"opacity": o.direction
+		});
+		this.afterFx(o, this);
 		return this;
+	},
+	/**
+     * Removes the element from the DOM after the animation
+     */
+	afterFx : function(o, el) {
+		if (o.remove === true) {
+			new Ext.util.DelayedTask(function(){
+				Ext.fly(el.dom).remove();
+			}).delay(o.duration+500);
+		}
 	}
 });
 
