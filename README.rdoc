@@ -14,4 +14,6 @@ Demo: http://www.artalat.com/Ext.Fx/Ext.Fx.html
 
 CSS3 Demo: http://www.simoens.org/projects/CSS3/
 
+Current contributers to this set include Shea Frederck (Shake), Nigel White (Ripple), Abdul Rehman Talat (numTransition) and Mitchell Simoens (CSS3)
+
 If you would like to see other effects added to this set please fill out a issue.
