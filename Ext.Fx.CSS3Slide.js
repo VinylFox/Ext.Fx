@@ -99,7 +99,12 @@ Ext.apply(Ext.Fx, {
 		if (o.remove === true) {
 			new Ext.util.DelayedTask(function(){
 				Ext.fly(el.dom).remove();
-			}).delay(o.duration+500);
+			}).delay(o.duration+150);
+		}
+		if (o.callback) {
+			el.addListener("webkitTransitionEnd", o.callback, el, {
+				single: true
+			});
 		}
 	}
 });
