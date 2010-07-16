@@ -24,7 +24,8 @@ Ext.apply(Ext.Fx, {
      */
 	CSS3FadeIn: function(o) {
 		o = Ext.applyIf(o || {}, {
-	        duration: 2000
+	        duration: 2000,
+	        easing: "linear"
 	    });
 		o.direction = 1;
 		return this.CSS3FadeToggle(o);
@@ -45,6 +46,7 @@ Ext.apply(Ext.Fx, {
 	CSS3FadeOut: function(o) {
 		o = Ext.applyIf(o || {}, {
 	        duration: 2000,
+	        easing: "linear",
 	        remove: true
 	    });
 		o.direction = 0;
@@ -67,6 +69,7 @@ Ext.apply(Ext.Fx, {
 		o = Ext.applyIf(o || {}, {
 	        duration: 2000,
 	        direction: null,
+	        easing: "linear",
 	        remove: false
 	    });
 		if (o.direction === null) {
@@ -74,10 +77,10 @@ Ext.apply(Ext.Fx, {
 		}
 		this.setStyle({
 			"-webkit-transform": "opacity",
-			"-webkit-transition-timing-function": "linear",
+			"-webkit-transition-timing-function": o.easing,
 			"-webkit-transition-duration": o.duration+"ms",
 			"-moz-transform": "opacity",
-			"-moz-transition-timing-function": "linear",
+			"-moz-transition-timing-function": o.easing,
 			"-moz-transition-duration": o.duration+"ms",
 			"opacity": o.direction
 		});
@@ -99,7 +102,8 @@ Ext.apply(Ext.Fx, {
      */
 	CSS3SlideIn: function(o) {
 		o = Ext.applyIf(o || {}, {
-	        duration: 2000
+	        duration: 2000,
+	        easing: "linear"
 	    });
 		this.CSS3SlideToggle(o);
 		return this;
@@ -124,6 +128,7 @@ Ext.apply(Ext.Fx, {
 				left: 200,
 				top: 200
 			},
+	        easing: "linear",
 	        remove: true
 	    });
 		this.CSS3SlideToggle(o);
@@ -150,6 +155,7 @@ Ext.apply(Ext.Fx, {
 				left: 0,
 				top: 0
 			},
+	        easing: "linear",
 	        remove: false
 	    });
 		if (this.getStyle("margin-left").replace("px", "") > 0 || this.getStyle("margin-top").replace("px", "") > 0) {
@@ -160,10 +166,10 @@ Ext.apply(Ext.Fx, {
 		}
 		this.setStyle({
 			"-webkit-transition": "margin",
-			"-webkit-transition-timing-function": "ease-in",
+			"-webkit-transition-timing-function": o.easing,
 			"-webkit-transition-duration": +o.duration+"ms",
 			"-moz-transition": "margin",
-			"-moz-transition-timing-function": "ease-in",
+			"-moz-transition-timing-function": o.easing,
 			"-moz-transition-duration": +o.duration+"ms",
 			"margin-left": o.margin.left+"px",
 			"margin-top": o.margin.top+"px"
@@ -190,6 +196,7 @@ Ext.apply(Ext.Fx, {
 	        spins: "infinite",
 	        enable3d: false,
 	        perspective: 900,
+	        easing: "linear",
 	        stylesheets: {}
 	    });
 		if (Number(o.spins) === -1) {
@@ -199,10 +206,10 @@ Ext.apply(Ext.Fx, {
 		o.stylesheets.cls = Ext.id();
 		o.stylesheets.cls_name = this.id+"_spinFx";
 		var stylesheet_ani = "@-webkit-keyframes spin {from { -webkit-transform: rotateY(0); }to   { -webkit-transform: rotateY(-360deg); }}";
-		var stylesheet_class = "."+o.stylesheets.cls_name+" {-webkit-animation: spin "+o.duration+"ms "+o.spins+" linear;}";
+		var stylesheet_class = "."+o.stylesheets.cls_name+" {-webkit-animation: spin "+o.duration+"ms "+o.spins+" "+o.easing+";}";
 		if (o.enable3d === true) {
 			stylesheet_ani = "@-webkit-keyframes spin3d {0%    { -webkit-transform: rotateY(0deg); }50%   { -webkit-transform: rotateY(180deg) perspective("+o.perspective+"); }100%  { -webkit-transform: rotateY(360deg); }}";
-			stylesheet_class = "."+o.stylesheets.cls_name+" {-webkit-animation: spin3d "+o.duration+"ms "+o.spins+" linear;-webkit-transform-style: preserve-3d;}";
+			stylesheet_class = "."+o.stylesheets.cls_name+" {-webkit-animation: spin3d "+o.duration+"ms "+o.spins+" "+o.easing+";-webkit-transform-style: preserve-3d;}";
 		}
 		Ext.util.CSS.createStyleSheet(stylesheet_ani, o.stylesheets.ani);
 		Ext.util.CSS.createStyleSheet(stylesheet_class, o.stylesheets.cls);
@@ -233,7 +240,8 @@ Ext.apply(Ext.Fx, {
      */
 	CSS3ZoomIn: function(o) {
 		o = Ext.applyIf(o || {}, {
-	        duration: 250
+	        duration: 250,
+	        easing: "linear"
 	    });
 		o.direction = 1;
 		return this.CSS3ZoomToggle(o);
@@ -254,6 +262,7 @@ Ext.apply(Ext.Fx, {
 	CSS3ZoomOut: function(o) {
 		o = Ext.applyIf(o || {}, {
 	        duration: 250,
+	        easing: "linear",
 	        remove: true
 	    });
 		o.direction = 0;
@@ -276,6 +285,7 @@ Ext.apply(Ext.Fx, {
 		o = Ext.applyIf(o || {}, {
 	        duration: 250,
 	        direction: null,
+	        easing: "linear",
 	        remove: false
 	    });
 		if (o.direction === null) {
@@ -283,12 +293,69 @@ Ext.apply(Ext.Fx, {
 		}
 		this.setStyle({
 			"-webkit-transform": "scale("+o.direction+")",
-			"-webkit-transition-timing-function": "linear",
+			"-webkit-transition-timing-function": o.easing,
 			"-webkit-transition-duration": o.duration+"ms",
 			"opacity": o.direction
 		});
 		this.afterFx(o, this);
 		return this;
+	},
+	CSS3FlipOut: function(o) {
+		o = Ext.applyIf(o || {}, {
+	        duration: 2000,
+	        direction: null,
+	        perspective: 900,
+	        easing: "linear",
+	        remove: false,
+	        stylesheets: {}
+	    });
+		o.stylesheets.ani = Ext.id();
+		o.stylesheets.cls = Ext.id();
+		o.stylesheets.cls_name = this.id+"_flipFx";
+		Ext.util.CSS.createStyleSheet("@-webkit-keyframes flipDown {0%    {-webkit-transform: rotateX(0deg);opacity:1;}99%  {-webkit-transform: rotateX(90deg) perspective("+o.perspective+");opacity:1;}100%  {opacity: 0;}}", o.stylesheets.ani);
+		Ext.util.CSS.createStyleSheet("."+o.stylesheets.cls_name+" {-webkit-animation: flipDown "+o.duration+"ms "+o.easing+";-webkit-transform-style: preserve-3d;-webkit-transform-origin: bottom center;}", o.stylesheets.cls);
+		this.addClass(o.stylesheets.cls_name);
+		new Ext.util.DelayedTask(function() {
+			this.setStyle("opacity", 0);
+			Ext.util.CSS.removeStyleSheet(o.stylesheets.ani);
+			Ext.util.CSS.removeStyleSheet(o.stylesheets.cls);
+			this.removeClass(o.stylesheets.cls_name);
+		}, this).delay(o.duration+15);
+		this.afterFx(o, this);
+		return this;
+	},
+	/**
+     * Shifts an element on the X and Y axis.
+     * Usage:
+     *<pre><code>
+          // default: shifts an element to original state (x:0 y:0)
+          el.CSS3Shift();
+
+          // custom: shifts an element with a duration of 5000 milliseconds and to the left 100px and up 100px
+          el.CSS3ZoomOut({ duration: 5000, x: 100, y: -100 });
+          
+          //NOTE: if you want to return to original position, just pass zeros (0) as x and y parameter
+     </code></pre>
+     * @param {Object} options (optional) Object literal with any of the CSS3Shift config options (duration)
+     * @return {Ext.Element} The Element
+     */
+	CSS3Shift: function(o) {
+		o = Ext.applyIf(o || {}, {
+	        duration: 2000,
+	        x: 0,
+	        y: 0,
+	        easing: "linear"
+	    });
+		this.setStyle({
+			"-webkit-transform": "translate("+o.x+"px, "+o.y+"px)",
+			"-webkit-transition-timing-function": o.easing,
+			"-webkit-transition-duration": o.duration+"ms",
+			"-moz-transition": "-o-transform "+o.duration+"s "+o.easing,
+			"-moz-transform": "translate("+o.x+"px, "+o.y+"px)",
+			"-o-transition": "-o-transform "+o.duration+"s "+o.easing,
+			"-o-transform": "translate("+o.x+"px, "+o.y+"px)"
+		});
+		this.afterFx(o, this);
 	},
 	/**
      * Removes the element from the DOM after the animation
@@ -300,9 +367,19 @@ Ext.apply(Ext.Fx, {
 			}).delay(o.duration+150);
 		}
 		if (o.callback) {
-			el.addListener("webkitTransitionEnd", o.callback, el, {
-				single: true
-			});
+			if (Ext.isWebKit) {
+				this.addListener("webkitTransitionEnd", o.callback, this, {
+					single: true
+				});
+			} else if (Ext.isGecko4) {
+				this.addListener("transitionend", o.callback, this, {
+					single: true
+				});
+			} else if (Ext.isOpera) {
+				this.addListener("oTransitionEnd", o.callback, this, {
+					single: true
+				});
+			}
 		}
 	}
 });

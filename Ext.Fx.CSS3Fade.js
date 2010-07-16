@@ -90,9 +90,19 @@ Ext.apply(Ext.Fx, {
 			}).delay(o.duration+150);
 		}
 		if (o.callback) {
-			el.addListener("webkitTransitionEnd", o.callback, el, {
-				single: true
-			});
+			if (Ext.isWebKit) {
+				this.addListener("webkitTransitionEnd", o.callback, this, {
+					single: true
+				});
+			} else if (Ext.isGecko4) {
+				this.addListener("transitionend", o.callback, this, {
+					single: true
+				});
+			} else if (Ext.isOpera) {
+				this.addListener("oTransitionEnd", o.callback, this, {
+					single: true
+				});
+			}
 		}
 	}
 });
