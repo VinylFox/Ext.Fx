@@ -9,6 +9,8 @@ The following effects are currently in this set:
 * CSS3 Spin
 * CSS3 Zoom
 * CSS3 Slide
+* CSS3 Shift
+* Gecko4 Browser Check
 
 Demo: http://www.artalat.com/Ext.Fx/Ext.Fx.html
 
